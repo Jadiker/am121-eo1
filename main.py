@@ -2,15 +2,21 @@ import os
 import re
 from grid import Grid
 
-FOLDER_LOCATION = "files"
+FOLDER_LOCATION = "real_files"
+OUTPUT_FILE = "output.txt"
 
-def display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution):
+def display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution, file=None):
     ans = ""
     for i in range(vertical_pixel_resolution):
         for j in range(horizontal_pixel_resolution):
             ans += str(brain[i][j]) if brain[i][j] % 1 == 0 else "X"
         ans += "\n"
-    print(ans)
+    if file is None:
+        print(ans)
+    else:
+        with open(file, 'w') as f:
+            f.write(ans)
+
 
 specs_file = open(os.path.join(FOLDER_LOCATION, 'specs.txt'))
 for line in specs_file:
@@ -24,7 +30,7 @@ specs_file.close()
 assert vertical_pixel_resolution and horizontal_pixel_resolution, "Could not find at least one of vertical and horizontal pixel resolution."
 
 brain = {i: {j: None for j in range(vertical_pixel_resolution)} for i in range(horizontal_pixel_resolution)}
-print(brain)
+# print(brain)
 
 # read in the critical_raw file
 critical_file = open(os.path.join(FOLDER_LOCATION, 'critical_raw.txt'))
@@ -101,3 +107,4 @@ for i in range(vertical_pixel_resolution):
                 brain[i][j] = 1
 
 display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution)
+display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution, file=OUTPUT_FILE)
