@@ -6,7 +6,7 @@ FOLDER_LOCATION = "small_example"
 OUTPUT_FILE = "small_output_without_whitespace.txt"
 
 def display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution, file=None):
-    space = ""
+    space = " "
     ans = ""
     for i in range(vertical_pixel_resolution):
         for j in range(horizontal_pixel_resolution):
