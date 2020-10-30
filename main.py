@@ -1,9 +1,8 @@
 import os
 import re
-from grid import Grid
 
-FOLDER_LOCATION = "small_example"
-OUTPUT_FILE = "small_output_without_whitespace.txt"
+FOLDER_LOCATION = "actual_example"
+OUTPUT_FILE = "actual_output_with_space.txt"
 
 def display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution, file=None):
     space = " "
