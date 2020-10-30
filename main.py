@@ -2,8 +2,8 @@ import os
 import re
 from grid import Grid
 
-FOLDER_LOCATION = "real_files"
-OUTPUT_FILE = "output.txt"
+FOLDER_LOCATION = "small_example"
+OUTPUT_FILE = "small_output.txt"
 
 def display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution, file=None):
     ans = ""
