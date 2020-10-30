@@ -3,13 +3,14 @@ import re
 from grid import Grid
 
 FOLDER_LOCATION = "small_example"
-OUTPUT_FILE = "small_output.txt"
+OUTPUT_FILE = "small_output_without_whitespace.txt"
 
 def display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution, file=None):
+    space = ""
     ans = ""
     for i in range(vertical_pixel_resolution):
         for j in range(horizontal_pixel_resolution):
-            ans += str(brain[i][j])+"\t" if brain[i][j] % 1 == 0 else "X\t"
+            ans += str(brain[i][j]) + space if brain[i][j] % 1 == 0 else "X" + space
         ans += "\n"
     if file is None:
         print(ans)
