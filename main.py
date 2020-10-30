@@ -9,7 +9,7 @@ def display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution,
     ans = ""
     for i in range(vertical_pixel_resolution):
         for j in range(horizontal_pixel_resolution):
-            ans += str(brain[i][j]) if brain[i][j] % 1 == 0 else "X"
+            ans += str(brain[i][j])+"\t" if brain[i][j] % 1 == 0 else "X\t"
         ans += "\n"
     if file is None:
         print(ans)
@@ -50,6 +50,7 @@ for i in range(vertical_pixel_resolution):
             brain[i][j] = None
         brain[i][j] = val
 
+print("Critical area:")
 display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution)
 
 # determine which ones are bordering - mark them with 0.5
@@ -85,17 +86,20 @@ for i in range(vertical_pixel_resolution):
             if bordering_critical:
                 brain[i][j] = 0.5
 
+print("Border without tumor taken out:")
 display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution)
 
 # read in the tumor_raw file
-critical_file = open(os.path.join(FOLDER_LOCATION, 'tumor_raw.txt'))
+tumor_file = open(os.path.join(FOLDER_LOCATION, 'tumor_raw.txt'))
+tumor_brain = {i: {j: None for j in range(vertical_pixel_resolution)} for i in range(horizontal_pixel_resolution)}
 for i in range(vertical_pixel_resolution):
     for j in range(horizontal_pixel_resolution):
         char = None
         while char not in ("0", "1"):
-            char = critical_file.read(1)
+            char = tumor_file.read(1)
             if not char:
                 raise ValueError("Was expecting more values")
+
 
         val = int(char)
         if brain[i][j] in (0, 1):
@@ -106,5 +110,11 @@ for i in range(vertical_pixel_resolution):
             else:
                 brain[i][j] = 1
 
+        tumor_brain[i][j] = val
+
+print("Tumor:")
+display_brain(tumor_brain, vertical_pixel_resolution, horizontal_pixel_resolution)
+
+print("Final result:")
 display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution)
 display_brain(brain, vertical_pixel_resolution, horizontal_pixel_resolution, file=OUTPUT_FILE)
